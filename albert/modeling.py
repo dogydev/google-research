@@ -908,6 +908,9 @@ def attention_ffn_block(layer_input,
   Returns:
     layer output
   """
+  
+  with tf.variable_scope("output", reuse=tf.AUTO_REUSE):
+					layer_input = layer_norm(layer_input)
 
   with tf.variable_scope("attention_1"):
     with tf.variable_scope("self"):
@@ -930,7 +933,11 @@ def attention_ffn_block(layer_input,
           None,
           name="dense")
       attention_output = dropout(attention_output, hidden_dropout_prob)
-  attention_output = layer_norm(attention_output + layer_input)
+  attention_output = attention_output + layer_input
+  
+  with tf.variable_scope(idx_scope['output'], reuse=tf.AUTO_REUSE):
+				attention_output_pre = layer_norm(attention_output)
+      
   with tf.variable_scope("ffn_1"):
     with tf.variable_scope("intermediate"):
       intermediate_output = dense_layer_2d(
@@ -949,7 +956,7 @@ def attention_ffn_block(layer_input,
             num_attention_heads=num_attention_heads,
             name="dense")
       ffn_output = dropout(ffn_output, hidden_dropout_prob)
-  ffn_output = layer_norm(ffn_output + attention_output)
+  #ffn_output = layer_norm(ffn_output + attention_output)
   return ffn_output
 
 
