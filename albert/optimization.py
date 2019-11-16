@@ -26,7 +26,7 @@ import six
 from six.moves import zip
 import tensorflow as tf
 
-from albert import lamb_optimizer
+import lamb_optimizer
 from tensorflow.contrib import tpu as contrib_tpu
 
 
