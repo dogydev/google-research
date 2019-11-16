@@ -28,9 +28,9 @@ import six
 from six.moves import zip
 import tensorflow as tf
 
-from albert import modeling
-from albert import optimization
-from albert import tokenization
+import modeling
+import optimization
+import tokenization
 from tensorflow.contrib import cluster_resolver as contrib_cluster_resolver
 from tensorflow.contrib import data as contrib_data
 from tensorflow.contrib import tpu as contrib_tpu
